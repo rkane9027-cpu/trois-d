@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Streetwear 3D | Nike TN · Adidas · Street Style</title>
+    <!-- Google Fonts pour une touche streetwear / moderne -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            color: white;
+        }
+
+        /* Overlay UI (informations, boutons) */
+        .ui-overlay {
+            position: absolute;
+            z-index: 10;
+            width: 100%;
+            pointer-events: none; /* pour cliquer à travers sur le canvas sauf les boutons */
+        }
+
+        /* Header stylé */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.4);
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            box-sizing: border-box;
+            pointer-events: auto;
+            z-index: 20;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff, #aa44ff, #00a6ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+        }
+        .logo p {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            margin: 0;
+            opacity: 0.7;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-weight: 600;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: 0.2s;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        .nav-links a:hover {
+            color: #aa44ff;
+        }
+
+        /* Hero texte au centre */
+        .hero-text {
+            position: absolute;
+            top: 20%;
+            left: 5%;
+            transform: translateY(-30%);
+            pointer-events: none;
+            z-index: 15;
+            text-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .hero-text h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: -1px;
+            background: linear-gradient(120deg, #fff, #ffcc44);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            max-width: 450px;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+        .hero-text .badge {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-left: 3px solid #aa44ff;
+            margin-top: 1rem;
+        }
+
+        /* CTA flottant */
+        .cta-button {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            background: #000000cc;
+            backdrop-filter: blur(12px);
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-weight: 700;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: 0.3s;
+            pointer-events: auto;
+            z-index: 20;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        .cta-button:hover {
+            background: #aa44ff;
+            border-color: #aa44ff;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(170,68,255,0.5);
+        }
+
+        /* Info produit au survol (optionnel) */
+        .info-tip {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            background: rgba(0,0,0,0.5);
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            pointer-events: none;
+            font-weight: 300;
+            backdrop-filter: blur(4px);
+            z-index: 15;
+        }
+
+        @media (max-width: 800px) {
+            .hero-text h2 { font-size: 2rem; }
+            .hero-text { top: 15%; left: 5%; }
+            .header { padding: 1rem 1.5rem; }
+            .nav-links { gap: 1rem; }
+            .logo h1 { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="ui-overlay">
+    <div class="header">
+        <div class="logo">
+            <h1>STREET³</h1>
+            <p>URBAN // 3D SHOWROOM</p>
+        </div>
+        <div class="nav-links">
+            <a href="#">NEW</a>
+            <a href="#">SNEAKERS</a>
+            <a href="#">PANTS</a>
+            <a href="#">ADIDAS</a>
+            <a href="#">NIKE TN</a>
+        </div>
+    </div>
+    <div class="hero-text">
+        <h2>STREETWEAR<br>3D EDITION</h2>
+        <p>Pantalons modernes, buggy jeans, <br>Nike TN, Adidas Originals & plus.</p>
+        <div class="badge">✨ Édition limitée ✨</div>
+    </div>
+    <div class="cta-button" id="exploreBtn">EXPLORE LA COLLECTION →</div>
+    <div class="info-tip">🖱️ Faites glisser pour voir la scène 3D | Carrousel interactif</div>
+</div>
+
+<!-- Import Three.js core + extensions -->
+<script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+        }
+    }
+</script>
+
+<script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
+    // --- INITIALISATION SCENE ---
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x050510); // fond profond
+    scene.fog = new THREE.FogExp2(0x050510, 0.008); // brume légère
+    
+    // Caméra perspective
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(6, 4, 8);
+    camera.lookAt(0, 0, 0);
+    
+    // Renderer principal
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true; // ombres pour le réalisme
+    renderer.setPixelRatio(window.devicePixelRatio);
+    document.body.appendChild(renderer.domElement);
+    
+    // Contrôles Orbit pour que l'utilisateur explore la 3D
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.autoRotate = false;
+    controls.enableZoom = true;
+    controls.zoomSpeed = 1.2;
+    controls.rotateSpeed = 1.0;
+    controls.target.set(0, 1, 0);
+    
+    // --- LUMIERES (ambiance streetwear néon) ---
+    // Lumière ambiante
+    const ambientLight = new THREE.AmbientLight(0x222222);
+    scene.add(ambientLight);
+    // Directional light principale
+    const mainLight = new THREE.DirectionalLight(0xffffff, 1);
+    mainLight.position.set(3, 5, 2);
+    mainLight.castShadow = true;
+    mainLight.receiveShadow = true;
+    mainLight.shadow.mapSize.width = 1024;
+    mainLight.shadow.mapSize.height = 1024;
+    scene.add(mainLight);
+    // Remplissage arrière
+    const backLight = new THREE.PointLight(0x4466ff, 0.5);
+    backLight.position.set(-2, 2, -4);
+    scene.add(backLight);
+    // Accents néon violets
+    const neonPurple = new THREE.PointLight(0xaa44ff, 0.8);
+    neonPurple.position.set(2, 1.5, 3);
+    scene.add(neonPurple);
+    // Lumière chaude au sol
+    const fillLight = new THREE.PointLight(0xffaa44, 0.4);
+    fillLight.position.set(1, 1, 2);
+    scene.add(fillLight);
+    
+    // Effet de particules flottantes (ambiance)
+    const particleCount = 1200;
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlePositions = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+        particlePositions[i*3] = (Math.random() - 0.5) * 40;
+        particlePositions[i*3+1] = (Math.random() - 0.5) * 15;
+        particlePositions[i*3+2] = (Math.random() - 0.5) * 20 - 10;
+    }
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    const particleMaterial = new THREE.PointsMaterial({
+        color: 0x88aaff,
+        size: 0.08,
+        transparent: true,
+        opacity: 0.5,
+        blending: THREE.AdditiveBlending
+    });
+    const particles = new THREE.Points(particlesGeometry, particleMaterial);
+    scene.add(particles);
+    
+    // Sol élégant avec grille et effet miroir
+    const gridHelper = new THREE.GridHelper(20, 30, 0xaa44ff, 0x3366aa);
+    gridHelper.position.y = -1.2;
+    gridHelper.material.transparent = true;
+    gridHelper.material.opacity = 0.4;
+    scene.add(gridHelper);
+    
+    // Un plan réfléchissant très subtil
+    const mirrorPlaneMat = new THREE.MeshStandardMaterial({ color: 0x111122, roughness: 0.2, metalness: 0.7, transparent: true, opacity: 0.3 });
+    const groundPlane = new THREE.Mesh(new THREE.PlaneGeometry(12, 12), mirrorPlaneMat);
+    groundPlane.rotation.x = -Math.PI / 2;
+    groundPlane.position.y = -1.25;
+    groundPlane.receiveShadow = true;
+    scene.add(groundPlane);
+    
+    // --- MODÈLE 3D CENTRAL : SNEAKER STYLÉE (Nike TN / Adidas vibe) ---
+    const shoeGroup = new THREE.Group();
+    
+    // Base de la semelle
+    const sole = new THREE.Mesh(
+        new THREE.BoxGeometry(1.6, 0.25, 0.9),
+        new THREE.MeshStandardMaterial({ color: 0xddddff, roughness: 0.3, metalness: 0.4, emissive: 0x111122 })
+    );
+    sole.position.y = -0.2;
+    sole.castShadow = true;
+    shoeGroup.add(sole);
+    
+    // Corps principal (toe box)
+    const upper = new THREE.Mesh(
+        new THREE.BoxGeometry(1.2, 0.5, 0.85),
+        new THREE.MeshStandardMaterial({ color: 0xcc3333, roughness: 0.2, metalness: 0.1, emissive: 0x330000 })
+    );
+    upper.position.set(0.1, 0.1, 0);
+    upper.castShadow = true;
+    shoeGroup.add(upper);
+    
+    // Talon arrondi
+    const heel = new THREE.Mesh(
+        new THREE.SphereGeometry(0.45, 24, 24),
+        new THREE.MeshStandardMaterial({ color: 0xaa3333, roughness: 0.2 })
+    );
+    heel.position.set(-0.65, 0.05, 0);
+    heel.scale.set(0.7, 0.5, 0.8);
+    heel.castShadow = true;
+    shoeGroup.add(heel);
+    
+    // Détail swoosh stylé (bande)
+    const swoosh = new THREE.Mesh(
+        new THREE.TorusGeometry(0.45, 0.07, 16, 64, Math.PI),
+        new THREE.MeshStandardMaterial({ color: 0xffaa44, metalness: 0.7, emissive: 0x442200 })
+    );
+    swoosh.rotation.z = 0.7;
+    swoosh.rotation.x = 0.2;
+    swoosh.position.set(0.3, 0.2, 0.55);
+    shoeGroup.add(swoosh);
+    
+    // Lacets (petits cylindres)
+    const laceColor = 0xffffff;
+    for (let i = -0.3; i <= 0.5; i+=0.4) {
+        const lace = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.05, 0.05, 0.2, 6),
+            new THREE.MeshStandardMaterial({ color: laceColor, emissive: 0x444444 })
+        );
+        lace.position.set(i, 0.35, 0.65);
+        lace.rotation.x = 0.5;
+        shoeGroup.add(lace);
+    }
+    
+    // Logo TN style sur le côté
+    const tnDecal = new THREE.Mesh(
+        new THREE.BoxGeometry(0.25, 0.1, 0.02),
+        new THREE.MeshStandardMaterial({ color: 0xffaa55, metalness: 0.9 })
+    );
+    tnDecal.position.set(-0.1, 0.15, 0.75);
+    shoeGroup.add(tnDecal);
+    
+    shoeGroup.position.set(0, 0.4, 0);
+    shoeGroup.scale.set(0.9, 0.9, 0.9);
+    shoeGroup.castShadow = true;
+    scene.add(shoeGroup);
+    
+    // Ajout d'une petite couronne de particules lumineuses autour de la sneaker
+    const glowRingGeo = new THREE.BufferGeometry();
+    const ringPositions = [];
+    for (let i = 0; i < 80; i++) {
+        const angle = (i / 80) * Math.PI * 2;
+        const radius = 1.2;
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
+        ringPositions.push(x, 0.2, z);
+    }
+    glowRingGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(ringPositions), 3));
+    const ringPoints = new THREE.Points(glowRingGeo, new THREE.PointsMaterial({ color: 0xff66ff, size: 0.05, blending: THREE.AdditiveBlending }));
+    scene.add(ringPoints);
+    
+    // --- CARROUSEL DE PRODUITS EN SPRITES 3D (cartes streetwear) ---
+    // Liste des produits : pantalons, buggy, Nike TN, Adidas etc.
+    const products = [
+        { name: "NIKE TN 'HyperBlue'", price: "149 €", type: "sneaker", color: "#2b6eff", icon: "👟", brand: "NIKE" },
+        { name: "ADIDAS SUPERSTAR", price: "129 €", type: "sneaker", color: "#000000", icon: "⚡", brand: "ADIDAS" },
+        { name: "MODERN CARGO PANTS", price: "89 €", type: "pants", color: "#4a6741", icon: "👖", brand: "STREET" },
+        { name: "BUGGY DENIM JEANS", price: "79 €", type: "pants", color: "#2c3e66", icon: "👖", brand: "BUGGY" },
+        { name: "YEEZY STYLE RUNNER", price: "199 €", type: "sneaker", color: "#b87333", icon: "👟", brand: "KANYE" },
+        { name: "OVERSIZED HOODIE", price: "109 €", type: "clothing", color: "#aa44ff", icon: "🧥", brand: "STREET³" }
+    ];
+    
+    // Fonction pour créer une texture canvas (carte produit détaillée)
+    function createProductTexture(product) {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 512;
+        canvas.height = 512;
+        
+        // Fond dégradé streetwear
+        const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        grad.addColorStop(0, '#0a0a1a');
+        grad.addColorStop(1, product.color + 'cc');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Bordure néon
+        ctx.strokeStyle = '#ff44dd';
+        ctx.lineWidth = 8;
+        ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
+        
+        // Icône grande (emoji ou dessin)
+        ctx.font = `100px "Inter", "Segoe UI", system-ui`;
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = '#ff66ff';
+        ctx.fillText(product.icon, canvas.width/2 - 50, 140);
+        ctx.shadowBlur = 0;
+        
+        // Marque
+        ctx.font = `bold 36px "Inter"`;
+        ctx.fillStyle = '#ccccff';
+        ctx.fillText(product.brand, canvas.width/2 - 70, 240);
+        
+        // Nom produit
+        ctx.font = `bold 42px "Inter"`;
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.fillText(product.name, canvas.width/2, 340);
+        
+        // Prix
+        ctx.font = `800 56px "Inter"`;
+        ctx.fillStyle = '#ffdd88';
+        ctx.fillText(product.price, canvas.width/2, 430);
+        
+        // Petit badge "New"
+        ctx.font = `bold 28px "Inter"`;
+        ctx.fillStyle = '#aa44ff';
+        ctx.fillText("SHOP NOW →", canvas.width/2, 500);
+        
+        // Détails supplémentaires
+        ctx.font = `20px "Inter"`;
+        ctx.fillStyle = '#aaaaff';
+        ctx.fillText("✦ 3D SHOWROOM ✦", canvas.width/2, 565);
+        
+        return new THREE.CanvasTexture(canvas);
+    }
+    
+    // Groupe qui contiendra les sprites en cercle
+    const carouselGroup = new THREE.Group();
+    scene.add(carouselGroup);
+    
+    const radius = 4.2;
+    const yOffset = 1.2;
+    const sprites = [];
+    
+    products.forEach((product, idx) => {
+        const texture = createProductTexture(product);
+        const material = new THREE.SpriteMaterial({ map: texture, depthTest: true, depthWrite: true, transparent: true });
+        const sprite = new THREE.Sprite(material);
+        
+        // Position sur un cercle
+        const angle = (idx / products.length) * Math.PI * 2;
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
+        sprite.position.set(x, yOffset + Math.sin(angle * 2) * 0.2, z);
+        
+        // Ajuster la taille des sprites (effet carte)
+        sprite.scale.set(2.4, 2.4, 1);
+        sprite.userData = { product: product, angle: angle, radius: radius };
+        
+        carouselGroup.add(sprite);
+        sprites.push(sprite);
+    });
+    
+    // Ajout de petits panneaux lumineux autour (anneau de particules)
+    const ringLights = [];
+    for (let i = 0; i < 36; i++) {
+        const ang = (i / 36) * Math.PI * 2;
+        const xRing = Math.cos(ang) * (radius + 0.2);
+        const zRing = Math.sin(ang) * (radius + 0.2);
+        const pointLightHelper = new THREE.Mesh(
+            new THREE.SphereGeometry(0.08, 8, 8),
+            new THREE.MeshStandardMaterial({ color: 0xff44aa, emissive: 0xaa2266 })
+        );
+        pointLightHelper.position.set(xRing, yOffset - 0.2, zRing);
+        carouselGroup.add(pointLightHelper);
+        ringLights.push(pointLightHelper);
+    }
+    
+    // Animation du carrousel : rotation lente
+    let carouselRotationSpeed = 0.002;
+    let time = 0;
+    
+    // --- ÉLÉMENTS CSS2D pour texte informatif volant (marques) ---
+    const labelDiv = document.createElement('div');
+    labelDiv.textContent = '⚡ NIKE TN | ADIDAS ⚡';
+    labelDiv.style.color = '#fff';
+    labelDiv.style.fontSize = '18px';
+    labelDiv.style.fontWeight = 'bold';
+    labelDiv.style.textShadow = '0 0 10px #ff44aa';
+    labelDiv.style.background = 'rgba(0,0,0,0.6)';
+    labelDiv.style.padding = '4px 12px';
+    labelDiv.style.borderRadius = '30px';
+    labelDiv.style.borderLeft = '3px solid #ff44aa';
+    labelDiv.style.backdropFilter = 'blur(5px)';
+    labelDiv.style.fontFamily = "'Inter', sans-serif";
+    const css2DRenderer = new CSS2DRenderer();
+    css2DRenderer.setSize(window.innerWidth, window.innerHeight);
+    css2DRenderer.domElement.style.position = 'absolute';
+    css2DRenderer.domElement.style.top = '0px';
+    css2DRenderer.domElement.style.left = '0px';
+    css2DRenderer.domElement.style.pointerEvents = 'none';
+    document.body.appendChild(css2DRenderer.domElement);
+    
+    const labelObj = new CSS2DObject(labelDiv);
+    labelObj.position.set(0, 2.2, 0);
+    scene.add(labelObj);
+    
+    // Un petit panneau flottant "PANTALON MODERNE" en CSS2D
+    const pantsLabelDiv = document.createElement('div');
+    pantsLabelDiv.textContent = '🔥 PANTS COLLECTION 🔥';
+    pantsLabelDiv.style.cssText = 'background:#000000aa; color:#ffaa44; padding:6px 14px; border-radius:40px; font-weight:bold; font-size:14px; backdrop-filter:blur(4px); border:1px solid #ffaa44;';
+    const pantsLabel = new CSS2DObject(pantsLabelDiv);
+    pantsLabel.position.set(2.5, 1.2, 2.8);
+    scene.add(pantsLabel);
+    
+    const nikeLabelDiv = document.createElement('div');
+    nikeLabelDiv.textContent = 'NIKE TN / AIR MAX';
+    nikeLabelDiv.style.cssText = 'background:#ff3366aa; color:white; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:bold; backdrop-filter:blur(4px);';
+    const nikeLabel = new CSS2DObject(nikeLabelDiv);
+    nikeLabel.position.set(-2, 1.5, -3);
+    scene.add(nikeLabel);
+    
+    // --- ANIMATION DE LA SNEAKER (flottement & rotation) ---
+    let shoeFloat = 0;
+    
+    // --- INTERACTION BOUTON ---
+    document.getElementById('exploreBtn').addEventListener('click', () => {
+        alert("✨ STREET³ 3D SHOWROOM ✨\nDécouvrez nos Nike TN, Adidas, pantalons modernes et plus.\nCollection disponible très bientôt !");
+        // Petit effet visuel : flash lumineux
+        const flashMat = new THREE.MeshBasicMaterial({ color: 0xaa44ff, transparent: true, opacity: 0.7 });
+        const flashPlane = new THREE.Mesh(new THREE.PlaneGeometry(8, 8), flashMat);
+        flashPlane.position.set(0, 1, 1);
+        scene.add(flashPlane);
+        setTimeout(() => scene.remove(flashPlane), 200);
+    });
+    
+    // --- ANIMATION GLOBALE & LOOP ---
+    let clock = new THREE.Clock();
+    
+    function animate() {
+        const delta = clock.getDelta();
+        const elapsedTime = performance.now() * 0.001;
+        
+        // Rotation du carrousel de produits (groupe entier)
+        carouselGroup.rotation.y += 0.003;
+        
+        // Animation individuelle des sprites : léger effet de flottement
+        sprites.forEach((sprite, i) => {
+            const origY = yOffset + Math.sin((i / sprites.length) * Math.PI * 2 * 2) * 0.2;
+            sprite.position.y = origY + Math.sin(elapsedTime * 1.5 + i) * 0.08;
+            // scaling pulsation discrète
+            const scaleBase = 2.4;
+            const pulse = 1 + Math.sin(elapsedTime * 2.5 + i) * 0.02;
+            sprite.scale.set(scaleBase * pulse, scaleBase * pulse, 1);
+        });
+        
+        // Animation sneaker centrale : flotter et tourner légèrement
+        shoeFloat = Math.sin(elapsedTime * 1.8) * 0.07;
+        shoeGroup.position.y = 0.4 + shoeFloat;
+        shoeGroup.rotation.z = Math.sin(elapsedTime * 1.2) * 0.1;
+        shoeGroup.rotation.x = Math.sin(elapsedTime * 0.9) * 0.05;
+        
+        // Anneau de particules autour de la sneaker
+        ringPoints.rotation.y += 0.01;
+        ringPoints.rotation.x = Math.sin(elapsedTime * 0.5) * 0.2;
+        
+        // Animation des petites lumières du carrousel
+        ringLights.forEach((light, idx) => {
+            const intensity = 0.5 + Math.sin(elapsedTime * 3 + idx) * 0.3;
+            if (light.material) light.material.emissiveIntensity = intensity * 0.8;
+        });
+        
+        // Mouvement des particules
+        particles.rotation.y += 0.0005;
+        particles.rotation.x += 0.0003;
+        
+        // Lumière néon dynamique
+        neonPurple.intensity = 0.7 + Math.sin(elapsedTime * 2) * 0.2;
+        
+        // CSS2D labels toujours face caméra (automatique)
+        labelObj.position.x = Math.sin(elapsedTime * 0.7) * 0.8;
+        labelObj.position.z = Math.cos(elapsedTime * 0.5) * 0.6;
+        
+        pantsLabel.position.x = 2.5 + Math.sin(elapsedTime * 0.9) * 0.2;
+        nikeLabel.position.x = -2 + Math.sin(elapsedTime * 1.1) * 0.3;
+        
+        // Contrôles et rendu
+        controls.update(); // met à jour orbit si déplacement utilisateur
+        
+        renderer.render(scene, camera);
+        css2DRenderer.render(scene, camera);
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
+    
+    // Gestion redimensionnement fenêtre
+    window.addEventListener('resize', onWindowResize, false);
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        css2DRenderer.setSize(window.innerWidth, window.innerHeight);
+    }
+    
+    // Petit confetti d'arrivée (effet stylé)
+    console.log('3D Streetwear Shop — Nike TN, Adidas, pants & sneakers');
+</script>
+</body>
+</html>
