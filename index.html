@@ -2,646 +2,1659 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>STREETZONE | Sneakers & Streetwear</title>
-    <!-- Font Awesome 6 (gratuit) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts : Poppins & Montserrat ultra moderne -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- AOS (Animate On Scroll) pour animations au défilement -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonne Fête Maman ❤️</title>
+
+    <!-- ==================== CSS ==================== -->
     <style>
-        * {
+        /* ========== VARIABLES CSS ========== */
+        :root {
+            --blanc: #ffffff;
+            --rose-doux: #f8e8ee;
+            --rose: #e8b4c4;
+            --rose-soutenu: #d4879e;
+            --violet-leger: #e8dff5;
+            --violet: #c4b5e0;
+            --violet-soutenu: #9b7ec4;
+            --dore: #d4a853;
+            --dore-clair: #f0e0b8;
+            --dore-sombre: #b8913a;
+            --texte: #3d2c3a;
+            --texte-doux: #6b5a68;
+            --fond: #fdf8fb;
+            --verre-bg: rgba(255, 255, 255, 0.35);
+            --verre-bg-fonce: rgba(255, 255, 255, 0.55);
+            --verre-border: rgba(255, 255, 255, 0.5);
+            --ombre-douce: 0 8px 32px rgba(155, 126, 180, 0.15);
+            --ombre-doree: 0 8px 32px rgba(212, 168, 83, 0.2);
+            --ombre-3d: 0 20px 50px rgba(155, 126, 180, 0.2);
+            --radius-sm: 16px;
+            --radius-md: 24px;
+            --radius-lg: 32px;
+            --radius-xl: 40px;
+            --transition: 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            --transition-lente: 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+            --font-principale: 'Georgia', 'Times New Roman', serif;
+            --font-secondaire: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --max-width: 1200px;
+        }
+
+        /* ========== RESET & BASE ========== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
         }
 
         body {
-            font-family: 'Inter', 'Poppins', sans-serif;
-            background-color: #0a0a0a;
-            color: #f0f0f0;
+            font-family: var(--font-secondaire);
+            background: var(--fond);
+            color: var(--texte);
+            line-height: 1.7;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            min-height: 100vh;
         }
 
-        /* ========== SCROLLBAR PERSONNALISÉE ========== */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1a1a1a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #ff3b6f;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #ff6b8f;
-        }
-
-        /* ========== NAVBAR FLOTTANTE AVEC ANIMATION ========== */
-        .navbar {
+        /* ========== CANVAS PARTICULES ========== */
+        #particules-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1000;
-            padding: 1.2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(15px);
-            background: rgba(0, 0, 0, 0.7);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        .navbar.scrolled {
-            padding: 0.8rem 5%;
-            background: rgba(0, 0, 0, 0.95);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-        }
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ff3b6f, #ff9f4a);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: -1px;
-            transition: transform 0.3s;
-        }
-        .logo:hover {
-            transform: scale(1.05);
-        }
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-        .nav-links li a {
-            text-decoration: none;
-            color: #f0f0f0;
-            font-weight: 600;
-            transition: 0.3s;
-            font-size: 1rem;
-            position: relative;
-        }
-        .nav-links li a::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: linear-gradient(90deg, #ff3b6f, #ff9f4a);
-            transition: 0.3s;
-            border-radius: 3px;
-        }
-        .nav-links li a:hover::after {
-            width: 100%;
-        }
-        .nav-links li a:hover {
-            color: #ff9f4a;
-        }
-        .menu-icon {
-            font-size: 1.8rem;
-            cursor: pointer;
-            display: none;
-            color: white;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        /* ========== SECTION HERO : VIDÉO + ANIMATION ========== */
-        .hero {
+        /* ========== CONTENEUR PRINCIPAL ========== */
+        .conteneur-principal {
             position: relative;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .bg-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -2;
-        }
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
-            z-index: -1;
-        }
-        .hero-content {
-            z-index: 2;
-            max-width: 900px;
-            padding: 1rem;
-            animation: fadeInUp 1.2s ease-out;
-        }
-        .hero-content h1 {
-            font-size: 4.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff, #ff9f4a, #ff3b6f);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: shimmer 3s linear infinite;
-            margin-bottom: 1rem;
-        }
-        .hero-content p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            color: #e0e0e0;
-        }
-        .btn-glow {
-            background: linear-gradient(45deg, #ff3b6f, #ff9f4a);
-            border: none;
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: white;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 0 15px rgba(255, 59, 111, 0.6);
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn-glow:hover {
-            transform: scale(1.07);
-            box-shadow: 0 0 25px rgba(255, 95, 109, 0.9);
+            z-index: 1;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
         }
 
-        /* animations keyframes */
-        @keyframes fadeInUp {
+        /* ========== ANIMATIONS KEYFRAMES ========== */
+        @keyframes flotter {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-14px);
+            }
+        }
+
+        @keyframes flotter-doux {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        @keyframes pulse-dore {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(212, 168, 83, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 0 20px rgba(212, 168, 83, 0);
+            }
+        }
+
+        @keyframes lueur {
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes apparition {
             from {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        @keyframes shimmer {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
+
+        @keyframes apparition-gauche {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
-        /* ========== SECTION PRODUITS GALERIE ========== */
-        .section-title {
-            text-align: center;
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin: 3rem 0 2rem;
-            letter-spacing: -1px;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #fff, #ff9f4a);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        @keyframes apparition-droite {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
-        .section-title:after {
+
+        @keyframes fondu-echelle {
+            from {
+                opacity: 0;
+                transform: scale(0.85);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes curseur-clignote {
+            0%,
+            100% {
+                border-right-color: var(--dore);
+            }
+            50% {
+                border-right-color: transparent;
+            }
+        }
+
+        @keyframes rotation-lente {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ========== CLASSES D'ANIMATION AU SCROLL ========== */
+        .reveal {
+            opacity: 0;
+            transition: opacity var(--transition-lente), transform var(--transition-lente);
+        }
+        .reveal.reveal-bas {
+            transform: translateY(50px);
+        }
+        .reveal.reveal-gauche {
+            transform: translateX(-40px);
+        }
+        .reveal.reveal-droite {
+            transform: translateX(40px);
+        }
+        .reveal.reveal-echelle {
+            transform: scale(0.9);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0) translateX(0) scale(1);
+        }
+
+        /* ========== SECTION COMMUNE ========== */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+        .section-titre {
+            text-align: center;
+            font-family: var(--font-principale);
+            font-size: 2.6rem;
+            color: var(--texte);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+        .section-titre span {
+            color: var(--dore);
+        }
+        .section-sous-titre {
+            text-align: center;
+            color: var(--texte-doux);
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+            font-style: italic;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 40px 0;
+        }
+        .hero-contenu {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+        .hero-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--dore-clair);
+            box-shadow: var(--ombre-doree), 0 0 60px rgba(212, 168, 83, 0.25);
+            margin-bottom: 30px;
+            animation: flotter 5s ease-in-out infinite;
+            transition: var(--transition);
+        }
+        .hero-photo:hover {
+            transform: scale(1.08);
+            box-shadow: var(--ombre-3d), 0 0 80px rgba(212, 168, 83, 0.4);
+        }
+        .hero-titre {
+            font-family: var(--font-principale);
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            color: var(--texte);
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+        .hero-titre .coeur {
+            color: #e8738a;
+            display: inline-block;
+            animation: pulse-dore 2s infinite;
+            border-radius: 50%;
+        }
+        .hero-sous-titre {
+            font-size: 1.25rem;
+            color: var(--texte-doux);
+            margin-bottom: 35px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+        .hero-bouton {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--dore), var(--dore-sombre));
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: var(--ombre-doree);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bouton::after {
             content: '';
             position: absolute;
-            bottom: -12px;
-            left: 20%;
-            width: 60%;
-            height: 4px;
-            background: linear-gradient(90deg, #ff3b6f, #ff9f4a);
-            border-radius: 4px;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
         }
-        .products-grid {
+        .hero-bouton:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 16px 40px rgba(212, 168, 83, 0.4);
+        }
+        .hero-bouton:hover::after {
+            transform: translateX(100%);
+        }
+
+        /* Cercles décoratifs */
+        .hero-deco {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero-deco-1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(232, 180, 196, 0.3), transparent);
+            top: 10%;
+            left: -8%;
+            animation: flotter 7s ease-in-out infinite;
+        }
+        .hero-deco-2 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(212, 168, 83, 0.2), transparent);
+            bottom: 15%;
+            right: -5%;
+            animation: flotter 6s ease-in-out 1s infinite;
+        }
+        .hero-deco-3 {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(196, 181, 224, 0.3), transparent);
+            top: 50%;
+            right: 10%;
+            animation: flotter 8s ease-in-out 2s infinite;
+        }
+
+        /* ========== BENTO GRID ========== */
+        .bento-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            padding: 2rem 5%;
-            max-width: 1400px;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 200px;
+            gap: 20px;
+            max-width: var(--max-width);
             margin: 0 auto;
         }
-        .product-card {
-            background: rgba(20, 20, 30, 0.8);
-            backdrop-filter: blur(6px);
-            border-radius: 28px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-        .product-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            border-color: #ff9f4a;
-            box-shadow: 0 25px 45px rgba(255, 63, 108, 0.3);
-        }
-        .card-img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .product-card:hover .card-img {
-            transform: scale(1.05);
-        }
-        .card-info {
-            padding: 1.5rem;
-        }
-        .card-info h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        .price {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: #ff9f4a;
-            margin: 0.7rem 0;
-        }
-        .price span {
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: #ccc;
-        }
-        .btn-card {
-            background: transparent;
-            border: 2px solid #ff9f4a;
-            padding: 0.6rem 1.2rem;
-            border-radius: 40px;
-            color: #ff9f4a;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            width: 100%;
-            font-size: 1rem;
-        }
-        .btn-card:hover {
-            background: #ff9f4a;
-            color: #0a0a0a;
-            box-shadow: 0 0 12px #ff9f4a;
-        }
-
-        /* ========== BANNIÈRE ANIMÉE ========== */
-        .promo-banner {
-            background: linear-gradient(120deg, #ff3b6f, #ff9f4a);
-            margin: 3rem 5%;
-            padding: 2rem;
-            border-radius: 60px;
+        .bento-carte {
+            background: var(--verre-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--verre-border);
+            border-radius: var(--radius-md);
+            padding: 28px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            animation: pulseGlow 2s infinite alternate;
+            text-align: center;
+            cursor: default;
+            transition: var(--transition);
+            box-shadow: var(--ombre-douce);
+            position: relative;
+            overflow: hidden;
+            perspective: 800px;
+            transform-style: preserve-3d;
         }
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(255, 59, 111, 0.4); }
-            100% { box-shadow: 0 0 20px 8px rgba(255, 155, 74, 0.6); }
+        .bento-carte:hover {
+            transform: rotateX(3deg) rotateY(-3deg) scale(1.03);
+            box-shadow: var(--ombre-3d);
+            border-color: var(--dore-clair);
         }
-        .promo-banner h3 {
-            font-size: 1.8rem;
-            font-weight: 800;
+        .bento-carte::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.5) 50%, transparent 60%);
+            transform: translateX(-100%) skewX(-15deg);
+            transition: transform 0.8s;
+            pointer-events: none;
+            z-index: 1;
         }
-        .promo-banner p {
+        .bento-carte:hover::before {
+            transform: translateX(100%) skewX(-15deg);
+        }
+        .bento-icone {
+            font-size: 2.6rem;
+            margin-bottom: 12px;
+            transition: var(--transition);
+            z-index: 2;
+            position: relative;
+        }
+        .bento-carte:hover .bento-icone {
+            transform: scale(1.2);
+        }
+        .bento-titre {
+            font-family: var(--font-principale);
             font-size: 1.2rem;
-        }
-        .promo-banner a {
-            background: #000;
-            padding: 0.8rem 2rem;
-            border-radius: 40px;
-            color: white;
-            text-decoration: none;
             font-weight: bold;
-            transition: 0.3s;
+            color: var(--texte);
+            margin-bottom: 6px;
+            z-index: 2;
+            position: relative;
         }
-        .promo-banner a:hover {
-            background: #222;
-            transform: scale(1.05);
+        .bento-texte {
+            font-size: 0.9rem;
+            color: var(--texte-doux);
+            z-index: 2;
+            position: relative;
+        }
+        /* Tailles variées */
+        .bento-carte.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        .bento-carte.moyen {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+        .bento-carte.petit {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+        .bento-carte.haut {
+            grid-column: span 1;
+            grid-row: span 2;
+        }
+        /* Couleurs de verre variées */
+        .bento-carte.rose {
+            background: rgba(248, 232, 238, 0.5);
+        }
+        .bento-carte.violet {
+            background: rgba(232, 223, 245, 0.5);
+        }
+        .bento-carte.dore {
+            background: rgba(240, 224, 184, 0.45);
+            border-color: rgba(212, 168, 83, 0.4);
         }
 
-        /* ========== FOOTER MODERNE ========== */
-        footer {
-            background: #050505;
-            padding: 2.5rem 5%;
-            margin-top: 3rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
+        /* ========== GALERIE ========== */
+        .galerie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: var(--max-width);
+            margin: 0 auto;
         }
-        .social-icons i {
-            font-size: 1.8rem;
-            margin: 0 15px;
-            color: #aaa;
-            transition: 0.3s;
+        .galerie-item {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
             cursor: pointer;
+            aspect-ratio: 4/3;
+            box-shadow: var(--ombre-douce);
+            transition: var(--transition);
+            perspective: 600px;
+            transform-style: preserve-3d;
         }
-        .social-icons i:hover {
-            color: #ff9f4a;
-            transform: translateY(-5px);
+        .galerie-item:hover {
+            transform: rotateX(4deg) rotateY(-4deg) scale(1.04);
+            box-shadow: var(--ombre-3d);
+            z-index: 5;
         }
-        footer p {
-            margin-top: 1rem;
-            color: #777;
+        .galerie-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        .galerie-item:hover img {
+            transform: scale(1.12);
+        }
+        .galerie-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(155, 126, 196, 0.5), transparent 60%);
+            opacity: 0;
+            transition: opacity var(--transition);
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            pointer-events: none;
+        }
+        .galerie-item:hover .galerie-overlay {
+            opacity: 1;
+        }
+        .galerie-overlay span {
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        /* Effet lueur au survol */
+        .galerie-item::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: var(--radius-md);
+            background: transparent;
+            transition: var(--transition);
+            pointer-events: none;
+            z-index: -1;
+        }
+        .galerie-item:hover::after {
+            background: linear-gradient(135deg, var(--dore-clair), var(--violet-leger));
+            filter: blur(15px);
+            opacity: 0.6;
+        }
+
+        /* ========== CARROUSEL ========== */
+        .carrousel-conteneur {
+            max-width: 750px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--ombre-3d);
+            aspect-ratio: 16/10;
+        }
+        .carrousel-piste {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+        .carrousel-slide {
+            min-width: 100%;
+            height: 100%;
+        }
+        .carrousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .carrousel-bouton {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--verre-bg-fonce);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--verre-border);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            font-size: 1.4rem;
+            color: var(--texte);
+            z-index: 3;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .carrousel-bouton:hover {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: var(--ombre-douce);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .carrousel-bouton.prev {
+            left: 16px;
+        }
+        .carrousel-bouton.next {
+            right: 16px;
+        }
+        .carrousel-dots {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+        .carrousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+        .carrousel-dot.active {
+            background: var(--dore);
+            width: 28px;
+            border-radius: 20px;
+        }
+
+        /* ========== LETTRE ========== */
+        .lettre-conteneur {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--verre-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--verre-border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--ombre-douce);
+            position: relative;
+        }
+        .lettre-texte {
+            font-family: var(--font-principale);
+            font-size: 1.15rem;
+            line-height: 2;
+            color: var(--texte);
+            min-height: 200px;
+            white-space: pre-wrap;
+            border-right: 3px solid var(--dore);
+            padding-right: 8px;
+            animation: curseur-clignote 0.8s step-end infinite;
+        }
+        .lettre-texte.termine {
+            border-right-color: transparent;
+            animation: none;
+        }
+        .lettre-signature {
+            text-align: right;
+            margin-top: 20px;
+            font-style: italic;
+            color: var(--dore-sombre);
+            font-size: 1.1rem;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .lettre-signature.visible {
+            opacity: 1;
+        }
+
+        /* ========== TIMELINE ========== */
+        .timeline {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+            padding-left: 40px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--dore), var(--violet), var(--rose));
+            border-radius: 3px;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 35px;
+        }
+        .timeline-point {
+            position: absolute;
+            left: -28px;
+            top: 6px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--dore);
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 4px var(--dore-clair);
+            z-index: 2;
+            transition: var(--transition);
+        }
+        .timeline-item:hover .timeline-point {
+            transform: scale(1.5);
+            box-shadow: 0 0 0 8px rgba(212, 168, 83, 0.3);
+        }
+        .timeline-carte {
+            background: var(--verre-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--verre-border);
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
+            box-shadow: var(--ombre-douce);
+            transition: var(--transition);
+        }
+        .timeline-item:hover .timeline-carte {
+            transform: translateX(6px);
+            box-shadow: var(--ombre-3d);
+            border-color: var(--dore-clair);
+        }
+        .timeline-date {
+            font-weight: 700;
+            color: var(--dore-sombre);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .timeline-titre {
+            font-family: var(--font-principale);
+            font-size: 1.15rem;
+            margin: 4px 0;
+            color: var(--texte);
+        }
+        .timeline-desc {
+            color: var(--texte-doux);
+            font-size: 0.9rem;
+        }
+
+        /* ========== MESSAGES SURPRISE ========== */
+        .messages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        .message-carte {
+            background: var(--verre-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--verre-border);
+            border-radius: var(--radius-md);
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--ombre-douce);
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            perspective: 700px;
+            transform-style: preserve-3d;
+            user-select: none;
+        }
+        .message-carte:hover {
+            transform: rotateX(5deg) rotateY(-5deg) scale(1.05);
+            box-shadow: var(--ombre-3d);
+            border-color: var(--dore-clair);
+        }
+        .message-carte .message-face {
+            transition: var(--transition);
+        }
+        .message-carte.revele {
+            background: linear-gradient(135deg, var(--rose-doux), var(--violet-leger));
+            border-color: var(--dore);
+            animation: fondu-echelle 0.5s ease;
+        }
+        .message-carte.revele .message-face {
+            transform: scale(1.05);
+        }
+        .message-emoji {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+        .message-carte.revele .message-emoji {
+            animation: flotter-doux 1s ease-in-out infinite;
+        }
+        .message-texte-cache {
+            font-family: var(--font-principale);
+            font-weight: bold;
+            color: var(--texte);
+            font-size: 0.95rem;
+        }
+        .message-indice {
+            font-size: 0.8rem;
+            color: var(--texte-doux);
+            margin-top: 6px;
+            opacity: 0.7;
+        }
+        .message-carte.revele .message-indice {
+            display: none;
+        }
+
+        /* ========== COMPTEUR ========== */
+        .compteur-conteneur {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--verre-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--verre-border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--ombre-douce);
+        }
+        .compteur-chiffre {
+            font-family: var(--font-principale);
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: bold;
+            color: var(--dore-sombre);
+            letter-spacing: 3px;
+            transition: var(--transition);
+        }
+        .compteur-label {
+            font-size: 1.1rem;
+            color: var(--texte-doux);
+            margin-top: 8px;
+            font-style: italic;
+        }
+        .compteur-coeur {
+            font-size: 2rem;
+            animation: lueur 2s ease-in-out infinite;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            text-align: center;
+            padding: 60px 24px;
+            position: relative;
+        }
+        .footer-message {
+            font-family: var(--font-principale);
+            font-size: 1.5rem;
+            color: var(--texte);
+            margin-bottom: 16px;
+        }
+        .footer-signature {
+            font-size: 1.3rem;
+            color: var(--dore-sombre);
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+        .footer-deco {
+            display: inline-block;
+            font-size: 2rem;
+            animation: flotter-doux 3s ease-in-out infinite;
         }
 
         /* ========== RESPONSIVE ========== */
-        @media (max-width: 900px) {
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background: #0a0a0af2;
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2.5rem;
-                transition: 0.4s ease;
-                z-index: 1001;
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 170px;
+                gap: 14px;
             }
-            .nav-links.active {
-                right: 0;
+            .bento-carte.large {
+                grid-column: span 2;
+                grid-row: span 2;
             }
-            .menu-icon {
-                display: block;
-                z-index: 1002;
+            .bento-carte.moyen {
+                grid-column: span 2;
+                grid-row: span 1;
             }
-            .hero-content h1 {
-                font-size: 2.8rem;
+            .bento-carte.haut {
+                grid-column: span 1;
+                grid-row: span 2;
             }
-            .section-title {
+            .bento-carte.petit {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+            .section {
+                padding: 50px 0;
+            }
+            .galerie-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 14px;
+            }
+            .messages-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 14px;
+            }
+            .timeline {
+                padding-left: 30px;
+            }
+            .timeline::before {
+                left: 12px;
+            }
+            .timeline-item {
+                padding-left: 28px;
+            }
+            .timeline-point {
+                left: -24px;
+                width: 13px;
+                height: 13px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 150px;
+                gap: 10px;
+            }
+            .bento-carte.large,
+            .bento-carte.moyen,
+            .bento-carte.haut,
+            .bento-carte.petit {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+            .bento-carte.large {
+                grid-row: span 2;
+            }
+            .section-titre {
+                font-size: 1.8rem;
+            }
+            .hero-photo {
+                width: 130px;
+                height: 130px;
+            }
+            .hero-titre {
                 font-size: 2rem;
             }
-            .products-grid {
-                padding: 1rem 4%;
-                gap: 1.2rem;
+            .hero-sous-titre {
+                font-size: 1rem;
             }
-            .promo-banner {
-                flex-direction: column;
-                text-align: center;
+            .carrousel-conteneur {
+                aspect-ratio: 4/3;
+                border-radius: var(--radius-md);
             }
-        }
-
-        /* Animation pour les cartes (via AOS + transitions) */
-        [data-aos] {
-            transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        /* petite animation de survol pour le header */
-        .cart-icon {
-            font-size: 1.4rem;
-            position: relative;
-            cursor: pointer;
-        }
-        /* style pour le bouton acheter notif */
-        .toast-msg {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #ff9f4a;
-            color: #0a0a0a;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: bold;
-            z-index: 1100;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            animation: fadeOut 2s forwards;
-        }
-        @keyframes fadeOut {
-            0% { opacity: 1; transform: translateY(0);}
-            70% { opacity: 1;}
-            100% { opacity: 0; transform: translateY(30px); visibility: hidden;}
+            .carrousel-bouton {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .lettre-conteneur {
+                padding: 24px 18px;
+            }
+            .lettre-texte {
+                font-size: 0.95rem;
+                line-height: 1.8;
+            }
+            .galerie-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 10px;
+            }
+            .messages-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .message-carte {
+                padding: 20px 14px;
+                min-height: 110px;
+            }
+            .compteur-conteneur {
+                padding: 28px 18px;
+            }
+            .timeline {
+                padding-left: 20px;
+            }
+            .timeline::before {
+                left: 7px;
+            }
+            .timeline-item {
+                padding-left: 22px;
+                margin-bottom: 28px;
+            }
+            .timeline-point {
+                left: -18px;
+                width: 10px;
+                height: 10px;
+            }
+            .footer-message {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR ANIMÉE -->
-    <nav class="navbar" id="navbar">
-        <div class="logo">✦ STREETZONE</div>
-        <div class="menu-icon" id="menuToggle">
-            <i class="fas fa-bars"></i>
-        </div>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#accueil">Accueil</a></li>
-            <li><a href="#produits">Baskets</a></li>
-            <li><a href="#vetements">Vêtements</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#" class="cart-icon"><i class="fas fa-shopping-bag"></i></a></li>
-        </ul>
-    </nav>
+    <!-- ==================== CANVAS PARTICULES ==================== -->
+    <canvas id="particules-canvas" aria-hidden="true"></canvas>
 
-    <!-- SECTION HERO AVEC VIDÉO D'AMBIANCE STREETWEAR -->
-    <section id="accueil" class="hero">
-        <video autoplay muted loop playsinline class="bg-video" poster="https://images.pexels.com/photos/1807566/pexels-photo-1807566.jpeg">
-            <!-- Vidéo libre de droits de démonstration streetwear/sneakers (Pixabay) -->
-            <source src="https://cdn.pixabay.com/video/2022/02/27/110512-686437817_large.mp4" type="video/mp4">
-            Votre navigateur ne supporte pas la vidéo.
-        </video>
-        <div class="overlay"></div>
-        <div class="hero-content">
-            <h1>DROP EXCLUSIF</h1>
-            <p>Les dernières Nike, Jordans & streetwear tendance. Livraison rapide en Afrique 🇨🇮</p>
-            <a href="#produits" class="btn-glow">SHOP NOW →</a>
-        </div>
-    </section>
+    <!-- ==================== CONTENEUR PRINCIPAL ==================== -->
+    <div class="conteneur-principal">
 
-    <!-- GALERIE PRODUITS (BASKETS + VÊTEMENTS) -->
-    <div id="produits">
-        <h2 class="section-title" data-aos="fade-up">🔥 ÉDITION LIMITÉE 🔥</h2>
-        <div class="products-grid" id="productGrid">
-            <!-- Les produits seront injectés dynamiquement via JS pour faciliter les animations et prix FCFA -->
-        </div>
-    </div>
+        <!-- ========== SECTION HERO ========== -->
+        <section class="hero section" id="hero">
+            <div class="hero-deco hero-deco-1"></div>
+            <div class="hero-deco hero-deco-2"></div>
+            <div class="hero-deco hero-deco-3"></div>
+            <div class="hero-contenu reveal reveal-echelle">
+                <!--
+                ╔══════════════════════════════════════╗
+                ║  REMPLACER : images/hero-maman.jpg  ║
+                ║  Photo portrait de maman (carrée)   ║
+                ╚══════════════════════════════════════╝
+                -->
+                <img
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face"
+                alt="Maman"
+                class="hero-photo"
+                loading="eager"
+                >
+                <h1 class="hero-titre">Bonne Fête Maman <span class="coeur">❤️</span></h1>
+                <p class="hero-sous-titre">
+                    Aujourd'hui, chaque étoile brille pour toi.<br>
+                    Tu es la plus belle des lumières dans ma vie.
+                </p>
+                <a href="#bento" class="hero-bouton">✨ Découvrir</a>
+            </div>
+        </section>
 
-    <!-- BANNIÈRE PROMO ANIMÉE -->
-    <div class="promo-banner" data-aos="zoom-in" data-aos-delay="100">
-        <div>
-            <h3><i class="fas fa-bolt"></i> -20% sur la première commande</h3>
-            <p>Code : STREET2025 | Valable 48h</p>
-        </div>
-        <a href="#">J'en profite →</a>
-    </div>
+        <!-- ========== SECTION BENTO GRID ========== -->
+        <section class="section" id="bento">
+            <h2 class="section-titre reveal reveal-bas">Des <span>mots</span> pour toi</h2>
+            <p class="section-sous-titre reveal reveal-bas">Quelques pensées qui me viennent quand je pense à toi</p>
+            <div class="bento-grid">
+                <!-- Carte large : Merci Maman -->
+                <div class="bento-carte large rose reveal reveal-gauche">
+                    <span class="bento-icone">🌸</span>
+                    <span class="bento-titre">Merci Maman</span>
+                    <span class="bento-texte">Pour chaque sacrifice, chaque sourire, chaque mot réconfortant. Tu as façonné qui je suis aujourd'hui.</span>
+                </div>
+                <!-- Carte moyenne : Mes souvenirs -->
+                <div class="bento-carte moyen violet reveal reveal-droite">
+                    <span class="bento-icone">📸</span>
+                    <span class="bento-titre">Mes souvenirs préférés</span>
+                    <span class="bento-texte">Les goûters après l'école, les câlins du soir, nos fous rires complices...</span>
+                </div>
+                <!-- Carte petite : Ce que tu m'as appris -->
+                <div class="bento-carte petit dore reveal reveal-bas">
+                    <span class="bento-icone">📖</span>
+                    <span class="bento-titre">Ce que tu m'as appris</span>
+                    <span class="bento-texte">La bienveillance, le courage, et l'art d'aimer sans compter.</span>
+                </div>
+                <!-- Carte haute : Pourquoi je t'aime -->
+                <div class="bento-carte haut rose reveal reveal-gauche">
+                    <span class="bento-icone">💝</span>
+                    <span class="bento-titre">Pourquoi je t'aime</span>
+                    <span class="bento-texte">Parce que ton cœur est un océan de douceur. Parce que tu es unique, irremplaçable, infiniment précieuse.</span>
+                </div>
+                <!-- Carte petite : Citation -->
+                <div class="bento-carte petit violet reveal reveal-droite">
+                    <span class="bento-icone">🕊️</span>
+                    <span class="bento-titre">Citation inspirante</span>
+                    <span class="bento-texte">« Une mère est la seule personne au monde qui peut aimer sans conditions. »</span>
+                </div>
+            </div>
+        </section>
 
-    <!-- SECTION VÊTEMENTS (DEUXIÈME GALERIE) -->
-    <div id="vetements">
-        <h2 class="section-title" data-aos="fade-up">👕 STREETWEAR ULTRA TREND</h2>
-        <div class="products-grid" id="clothingGrid"></div>
-    </div>
+        <!-- ========== SECTION GALERIE ========== -->
+        <section class="section" id="galerie">
+            <h2 class="section-titre reveal reveal-bas">Galerie de <span>souvenirs</span></h2>
+            <p class="section-sous-titre reveal reveal-bas">Quelques instants précieux capturés avec toi</p>
+            <div class="galerie-grid">
+                <!--
+                ╔═══════════════════════════════════╗
+                ║  REMPLACER les images ci-dessous ║
+                ║  Dossier : images/              ║
+                ║  galerie-1.jpg à galerie-6.jpg  ║
+                ╚═══════════════════════════════════╝
+                -->
+                <div class="galerie-item reveal reveal-echelle">
+                    <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=500&h=375&fit=crop" alt="Souvenir 1" loading="lazy">
+                    <div class="galerie-overlay"><span>✨ Instant de bonheur</span></div>
+                </div>
+                <div class="galerie-item reveal reveal-echelle">
+                    <img src="https://images.unsplash.com/photo-1520699049698-acd2fccb8cc8?w=500&h=375&fit=crop" alt="Souvenir 2" loading="lazy">
+                    <div class="galerie-overlay"><span>🌷 Douceur partagée</span></div>
+                </div>
+                <div class="galerie-item reveal reveal-echelle">
+                    <img src="https://images.unsplash.com/photo-1604904612715-47bf9d9bc670?w=500&h=375&fit=crop" alt="Souvenir 3" loading="lazy">
+                    <div class="galerie-overlay"><span>💛 Complicité</span></div>
+                </div>
+                <div class="galerie-item reveal reveal-echelle">
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500&h=375&fit=crop" alt="Souvenir 4" loading="lazy">
+                    <div class="galerie-overlay"><span>🌟 Éclat de rire</span></div>
+                </div>
+                <div class="galerie-item reveal reveal-echelle">
+                    <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=500&h=375&fit=crop" alt="Souvenir 5" loading="lazy">
+                    <div class="galerie-overlay"><span>🌸 Tendresse</span></div>
+                </div>
+                <div class="galerie-item reveal reveal-echelle">
+                    <img src="https://images.unsplash.com/photo-1504199367641-aba8151af406?w=500&h=375&fit=crop" alt="Souvenir 6" loading="lazy">
+                    <div class="galerie-overlay"><span>🎀 Amour pur</span></div>
+                </div>
+            </div>
+        </section>
 
-    <footer id="contact">
-        <div class="social-icons">
-            <i class="fab fa-instagram"></i>
-            <i class="fab fa-tiktok"></i>
-            <i class="fab fa-twitter"></i>
-            <i class="fab fa-snapchat"></i>
-        </div>
-        <p>© 2025 STREETZONE — Sneakers & authentic streetwear. Prix en FCFA (XOF). Tous droits réservés.</p>
-        <p style="margin-top: 8px;">📍 Livraison gratuite à partir de 50 000 FCFA</p>
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Initialisation AOS pour les animations au scroll
-        AOS.init({
-            duration: 1000,
-            once: false,
-            mirror: true,
-            offset: 80
-        });
-
-        // Base de données produits (prix en FCFA)
-        const sneakers = [
-            { id: 1, name: "Nike Air Force 1 '07", price: 85000, img: "https://images.pexels.com/photos/1598508/pexels-photo-1598508.jpeg?auto=compress&cs=tinysrgb&w=600", cat: "basket" },
-            { id: 2, name: "Nike Dunk Low Panda", price: 99000, img: "https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=600", cat: "basket" },
-            { id: 3, name: "Jordan 1 Retro High", price: 149000, img: "https://images.pexels.com/photos/1194420/pexels-photo-1194420.jpeg?auto=compress&cs=tinysrgb&w=600", cat: "basket" },
-            { id: 4, name: "Nike Air Max 90", price: 112000, img: "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=600", cat: "basket" },
-            { id: 5, name: "Adidas Yeezy 350", price: 185000, img: "https://images.pexels.com/photos/2300330/pexels-photo-2300330.jpeg?auto=compress&cs=tinysrgb&w=600", cat: "basket" },
-            { id: 6, name: "New Balance 550", price: 78000, img: "https://images.pexels.com/photos/15352547/pexels-photo-15352547.jpeg?auto=compress&cs=tinysrgb&w=600", cat: "basket" }
-        ];
-
-        const clothes = [
-            { id: 7, name: "Nike Club Hoodie", price: 55000, img: "https://images.pexels.com/photos/9954253/pexels-photo-9954253.jpeg?auto=compress&cs=tinysrgb&w=600", cat: "vêtement" },
-            { id: 8, name: "Jordan Tee Essentials", price: 32000, img: "https://images.pexels.com/photos/985635/pexels-photo-985635.jpeg?auto=compress&cs=tinysrgb&w=600", cat: "vêtement" },
-            { id: 9, name: "Jogging Nike Sportswear", price: 68000, img: "https://images.pexels.com/photos/9964840/pexels-photo-9964840.jpeg?auto=compress&cs=tinysrgb&w=600", cat: "vêtement" },
-            { id: 10, name: "Veste Nike Tech Fleece", price: 95000, img: "https://images.pexels.com/photos/1807207/pexels-photo-1807207.jpeg?auto=compress&cs=tinysrgb&w=600", cat: "vêtement" },
-            { id: 11, name: "Casquette New Era NBA", price: 27000, img: "https://images.pexels.com/photos/1404450/pexels-photo-1404450.jpeg?auto=compress&cs=tinysrgb&w=600", cat: "vêtement" },
-            { id: 12, name: "Sac à dos Nike Heritage", price: 45000, img: "https://images.pexels.com/photos/2892348/pexels-photo-2892348.jpeg?auto=compress&cs=tinysrgb&w=600", cat: "vêtement" }
-        ];
-
-        // Fonction pour générer les cartes produit
-        function renderProducts(products, containerId) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            container.innerHTML = '';
-            products.forEach((product, idx) => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                // Ajout attribut data-aos pour animation différée
-                card.setAttribute('data-aos', 'fade-up');
-                card.setAttribute('data-aos-delay', (idx * 80).toString());
-                // Formater prix en FCFA
-                const priceFormatted = product.price.toLocaleString('fr-FR');
-                card.innerHTML = `
-                    <img class="card-img" src="${product.img}" alt="${product.name}" loading="lazy" onerror="this.src='https://placehold.co/600x400/1e1e2e/white?text=Nike'">
-                    <div class="card-info">
-                        <h3>${product.name}</h3>
-                        <div class="price">${priceFormatted} <span>FCFA</span></div>
-                        <button class="btn-card" data-name="${product.name}" data-price="${product.price}"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+        <!-- ========== SECTION CARROUSEL ========== -->
+        <section class="section" id="carrousel">
+            <h2 class="section-titre reveal reveal-bas">Toi, à travers le <span>temps</span></h2>
+            <p class="section-sous-titre reveal reveal-bas">Des images qui racontent ta beauté</p>
+            <div class="carrousel-conteneur reveal reveal-echelle">
+                <div class="carrousel-piste" id="carrousel-piste">
+                    <!--
+                    ╔══════════════════════════════════════╗
+                    ║  REMPLACER :                        ║
+                    ║  images/carrousel-1.jpg             ║
+                    ║  images/carrousel-2.jpg             ║
+                    ║  images/carrousel-3.jpg             ║
+                    ║  images/carrousel-4.jpg             ║
+                    ╚══════════════════════════════════════╝
+                    -->
+                    <div class="carrousel-slide">
+                        <img src="https://images.unsplash.com/photo-1431608660976-4fe5bcc2112c?w=800&h=500&fit=crop" alt="Carrousel 1" loading="lazy">
                     </div>
-                `;
-                container.appendChild(card);
-            });
-            // Attacher événements aux boutons après rendu
-            attachCartEvents();
-        }
+                    <div class="carrousel-slide">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=500&fit=crop&crop=face" alt="Carrousel 2" loading="lazy">
+                    </div>
+                    <div class="carrousel-slide">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&h=500&fit=crop&crop=face" alt="Carrousel 3" loading="lazy">
+                    </div>
+                    <div class="carrousel-slide">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&h=500&fit=crop&crop=face" alt="Carrousel 4" loading="lazy">
+                    </div>
+                </div>
+                <button class="carrousel-bouton prev" id="carrousel-prev" aria-label="Précédent">◀</button>
+                <button class="carrousel-bouton next" id="carrousel-next" aria-label="Suivant">▶</button>
+                <div class="carrousel-dots" id="carrousel-dots"></div>
+            </div>
+        </section>
 
-        // Fonction pour le toast d'ajout au panier (animation)
-        function showToast(productName) {
-            const toast = document.createElement('div');
-            toast.className = 'toast-msg';
-            toast.innerHTML = `✅ ${productName} ajouté au panier !`;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.remove();
-            }, 2000);
-        }
+        <!-- ========== SECTION LETTRE ========== -->
+        <section class="section" id="lettre">
+            <h2 class="section-titre reveal reveal-bas">Une <span>lettre</span> pour toi</h2>
+            <p class="section-sous-titre reveal reveal-bas">Les mots que mon cœur murmure</p>
+            <div class="lettre-conteneur reveal reveal-echelle" id="lettre-conteneur">
+                <div class="lettre-texte" id="lettre-texte"></div>
+                <div class="lettre-signature" id="lettre-signature">Avec tout mon amour,<br>Ton fils <span>❤️</span></div>
+            </div>
+        </section>
 
-        function attachCartEvents() {
-            const btns = document.querySelectorAll('.btn-card');
-            btns.forEach(btn => {
-                // Éviter doublons d'event
-                btn.removeEventListener('click', handleCartClick);
-                btn.addEventListener('click', handleCartClick);
-            });
-        }
+        <!-- ========== SECTION TIMELINE ========== -->
+        <section class="section" id="timeline">
+            <h2 class="section-titre reveal reveal-bas">Les <span>moments</span> qui comptent</h2>
+            <p class="section-sous-titre reveal reveal-bas">Une vie entière de souvenirs avec toi</p>
+            <div class="timeline">
+                <div class="timeline-item reveal reveal-gauche">
+                    <div class="timeline-point"></div>
+                    <div class="timeline-carte">
+                        <div class="timeline-date">📅 Le jour de ma naissance</div>
+                        <div class="timeline-titre">Le début de notre histoire</div>
+                        <div class="timeline-desc">Le jour où tu es devenue ma maman. Le plus beau cadeau que la vie pouvait me faire.</div>
+                    </div>
+                </div>
+                <div class="timeline-item reveal reveal-droite">
+                    <div class="timeline-point"></div>
+                    <div class="timeline-carte">
+                        <div class="timeline-date">📅 Mes premiers pas</div>
+                        <div class="timeline-titre">Tu m'as appris à marcher</div>
+                        <div class="timeline-desc">Tes mains tendues, ton regard confiant. Tu as cru en moi avant même que je sache marcher.</div>
+                    </div>
+                </div>
+                <div class="timeline-item reveal reveal-gauche">
+                    <div class="timeline-point"></div>
+                    <div class="timeline-carte">
+                        <div class="timeline-date">📅 Mon premier jour d'école</div>
+                        <div class="timeline-titre">Les larmes et les sourires</div>
+                        <div class="timeline-desc">Tu m'as rassuré, tu m'as dit que tout irait bien. Et tu avais raison, comme toujours.</div>
+                    </div>
+                </div>
+                <div class="timeline-item reveal reveal-droite">
+                    <div class="timeline-point"></div>
+                    <div class="timeline-carte">
+                        <div class="timeline-date">📅 Chaque anniversaire</div>
+                        <div class="timeline-titre">Des fêtes inoubliables</div>
+                        <div class="timeline-desc">Les gâteaux faits maison, les bougies, les chansons. Chaque année, tu rendais tout magique.</div>
+                    </div>
+                </div>
+                <div class="timeline-item reveal reveal-gauche">
+                    <div class="timeline-point"></div>
+                    <div class="timeline-carte">
+                        <div class="timeline-date">📅 Aujourd'hui</div>
+                        <div class="timeline-titre">Je te dis merci</div>
+                        <div class="timeline-desc">Pour tout ce que tu es, pour tout ce que tu fais. Aujourd'hui et chaque jour, je célèbre ta présence.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        function handleCartClick(e) {
-            const btn = e.currentTarget;
-            const productName = btn.getAttribute('data-name');
-            const productPrice = btn.getAttribute('data-price');
-            // Effet animé supplémentaire sur bouton
-            btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Ajout...';
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fas fa-check"></i> Ajouté !';
-                setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-cart-plus"></i> Ajouter au panier';
-                }, 1000);
-            }, 300);
-            showToast(productName);
-            // Simulation console (peut etre relié à un vrai panier)
-            console.log(`Ajouté : ${productName} - ${productPrice} FCFA`);
-        }
+        <!-- ========== SECTION MESSAGES SURPRISE ========== -->
+        <section class="section" id="messages">
+            <h2 class="section-titre reveal reveal-bas">Messages <span>surprise</span></h2>
+            <p class="section-sous-titre reveal reveal-bas">Clique sur chaque carte pour découvrir un message</p>
+            <div class="messages-grid">
+                <div class="message-carte reveal reveal-echelle" data-message="Je t'aime maman ❤️">
+                    <span class="message-face">
+                        <span class="message-emoji">💌</span>
+                        <span class="message-indice">Clique-moi !</span>
+                    </span>
+                </div>
+                <div class="message-carte reveal reveal-echelle" data-message="Merci pour tout ❤️">
+                    <span class="message-face">
+                        <span class="message-emoji">🎁</span>
+                        <span class="message-indice">Clique-moi !</span>
+                    </span>
+                </div>
+                <div class="message-carte reveal reveal-echelle" data-message="Tu es la meilleure ❤️">
+                    <span class="message-face">
+                        <span class="message-emoji">👑</span>
+                        <span class="message-indice">Clique-moi !</span>
+                    </span>
+                </div>
+                <div class="message-carte reveal reveal-echelle" data-message="Tu es mon soleil ☀️">
+                    <span class="message-face">
+                        <span class="message-emoji">🌻</span>
+                        <span class="message-indice">Clique-moi !</span>
+                    </span>
+                </div>
+                <div class="message-carte reveal reveal-echelle" data-message="Tu illumines ma vie ✨">
+                    <span class="message-face">
+                        <span class="message-emoji">💫</span>
+                        <span class="message-indice">Clique-moi !</span>
+                    </span>
+                </div>
+                <div class="message-carte reveal reveal-echelle" data-message="À jamais dans mon cœur 💖">
+                    <span class="message-face">
+                        <span class="message-emoji">💝</span>
+                        <span class="message-indice">Clique-moi !</span>
+                    </span>
+                </div>
+            </div>
+        </section>
 
-        // Rendu des deux galeries
-        renderProducts(sneakers, 'productGrid');
-        renderProducts(clothes, 'clothingGrid');
+        <!-- ========== SECTION COMPTEUR ========== -->
+        <section class="section" id="compteur">
+            <h2 class="section-titre reveal reveal-bas">Depuis <span>combien de temps</span></h2>
+            <p class="section-sous-titre reveal reveal-bas">Tu prends soin de moi, chaque jour sans exception</p>
+            <div class="compteur-conteneur reveal reveal-echelle">
+                <span class="compteur-coeur">❤️</span>
+                <div class="compteur-chiffre" id="compteur-jours">0</div>
+                <div class="compteur-label">jours d'amour inconditionnel</div>
+                <p style="margin-top:12px;color:var(--texte-doux);font-size:0.85rem;">
+                    Depuis le <strong id="compteur-date">15 mai 1990</strong>
+                </p>
+            </div>
+        </section>
 
-        // Animation navbar au scroll
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+        <!-- ========== FOOTER ========== -->
+        <footer class="footer" id="footer">
+            <div class="reveal reveal-bas">
+                <span class="footer-deco">🌷</span>
+                <p class="footer-message">
+                    Maman, tu es le plus beau cadeau que la vie m'ait offert.<br>
+                    Aujourd'hui et chaque jour, je te célèbre.
+                </p>
+                <p class="footer-signature">
+                    Ton fils <span>❤️</span>
+                </p>
+                <p style="margin-top:20px;font-size:0.85rem;color:var(--texte-doux);">
+                    Fête des mères 2026 — Fait avec tout mon cœur
+                </p>
+            </div>
+        </footer>
+
+    </div><!-- fin conteneur-principal -->
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        (function() {
+            // =============================================
+            // CONFIGURATION - À MODIFIER SELON VOS BESOINS
+            // =============================================
+
+            /** Date de naissance (ou date symbolique) pour le compteur */
+            const DATE_NAISSANCE = new Date('1990-05-15'); // Format : AAAA-MM-JJ
+
+            /** Texte de la lettre à afficher avec effet machine à écrire */
+            const TEXTE_LETTRE = `Ma très chère Maman,
+
+        En ce jour si spécial, je voulais prendre le temps de t'écrire ces quelques mots. Des mots qui viennent du plus profond de mon cœur.
+
+        Merci. Merci pour tout. Pour chaque matin où tu t'es levée plus tôt pour préparer mon petit-déjeuner. Pour chaque soir où tu es restée à mon chevet quand j'étais malade. Pour chaque larme que tu as essuyée, chaque sourire que tu as fait naître sur mon visage.
+
+        Tu m'as appris la patience, la générosité, le courage. Tu m'as montré ce que signifie aimer sans condition, donner sans attendre en retour.
+
+        Aujourd'hui, je mesure la chance immense que j'ai de t'avoir comme maman. Tu es ma boussole, mon refuge, mon inspiration.
+
+        Je te souhaite la plus belle des fêtes des mères. Que cette journée soit à la hauteur de tout l'amour que tu donnes au monde.
+
+        Je t'aime, infiniment.`;
+
+            // =============================================
+            // 1. PARTICULES LUMINEUSES EN ARRIÈRE-PLAN
+            // =============================================
+            const canvas = document.getElementById('particules-canvas');
+            const ctx = canvas.getContext('2d');
+            let particules = [];
+            const MAX_PARTICULES = 70;
+
+            function redimensionnerCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
             }
-        });
+            redimensionnerCanvas();
+            window.addEventListener('resize', redimensionnerCanvas);
 
-        // Menu burger pour mobile
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-        if (menuToggle) {
-            menuToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                // Animation icône
-                const icon = menuToggle.querySelector('i');
-                if (navLinks.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
+            class Particule {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.taille = Math.random() * 3 + 1;
+                    this.vx = (Math.random() - 0.5) * 0.4;
+                    this.vy = (Math.random() - 0.5) * 0.4;
+                    this.opacite = Math.random() * 0.5 + 0.2;
+                    // Couleurs : doré, rose, violet
+                    const couleurs = [
+                        'rgba(212,168,83,OPA)',
+                        'rgba(232,180,196,OPA)',
+                        'rgba(196,181,224,OPA)',
+                        'rgba(240,224,184,OPA)',
+                    ];
+                    this.couleurBase = couleurs[Math.floor(Math.random() * couleurs.length)];
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    // Légère variation
+                    this.vx += (Math.random() - 0.5) * 0.02;
+                    this.vy += (Math.random() - 0.5) * 0.02;
+                    // Limiter la vitesse
+                    this.vx = Math.max(-0.7, Math.min(0.7, this.vx));
+                    this.vy = Math.max(-0.7, Math.min(0.7, this.vy));
+                    // Rebondir sur les bords
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                    this.x = Math.max(0, Math.min(canvas.width, this.x));
+                    this.y = Math.max(0, Math.min(canvas.height, this.y));
+                }
+                draw(ctx) {
+                    ctx.save();
+                    ctx.globalAlpha = this.opacite;
+                    ctx.fillStyle = this.couleurBase.replace('OPA', this.opacite);
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.taille, 0, Math.PI * 2);
+                    ctx.fill();
+                    // Lueur
+                    ctx.shadowColor = this.couleurBase.replace('OPA', '0.6');
+                    ctx.shadowBlur = 8;
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            // Initialiser les particules
+            for (let i = 0; i < MAX_PARTICULES; i++) {
+                particules.push(new Particule());
+            }
+
+            function animerParticules() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particules.forEach(p => {
+                    p.update();
+                    p.draw(ctx);
+                });
+                // Connexions entre particules proches
+                for (let i = 0; i < particules.length; i++) {
+                    for (let j = i + 1; j < particules.length; j++) {
+                        const dx = particules[i].x - particules[j].x;
+                        const dy = particules[i].y - particules[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.save();
+                            ctx.globalAlpha = (1 - dist / 120) * 0.2;
+                            ctx.strokeStyle = 'rgba(212,168,83,0.5)';
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(particules[i].x, particules[i].y);
+                            ctx.lineTo(particules[j].x, particules[j].y);
+                            ctx.stroke();
+                            ctx.restore();
+                        }
+                    }
+                }
+                requestAnimationFrame(animerParticules);
+            }
+            animerParticules();
+
+            // =============================================
+            // 2. INTERSECTION OBSERVER - ANIMATIONS AU SCROLL
+            // =============================================
+            const elementsReveal = document.querySelectorAll('.reveal');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -60px 0px',
+                threshold: 0.15,
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Délai progressif pour un effet cascade
+                        const delay = entry.target.dataset.delay || 0;
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, delay);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            elementsReveal.forEach((el, index) => {
+                // Attribuer un délai basé sur l'index pour un effet cascade naturel
+                const delay = Math.min(index * 30, 400);
+                el.dataset.delay = delay;
+                el.style.transitionDelay = delay + 'ms';
+                observer.observe(el);
+            });
+
+            // =============================================
+            // 3. CARROUSEL AUTOMATIQUE
+            // =============================================
+            const piste = document.getElementById('carrousel-piste');
+            const slides = piste.querySelectorAll('.carrousel-slide');
+            const dotsContainer = document.getElementById('carrousel-dots');
+            const btnPrev = document.getElementById('carrousel-prev');
+            const btnNext = document.getElementById('carrousel-next');
+            let slideActuelle = 0;
+            const totalSlides = slides.length;
+            let intervalleAuto;
+
+            // Créer les dots
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.classList.add('carrousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+                dot.addEventListener('click', () => allerALaSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+            const dots = dotsContainer.querySelectorAll('.carrousel-dot');
+
+            function allerALaSlide(index) {
+                slideActuelle = index;
+                if (slideActuelle < 0) slideActuelle = totalSlides - 1;
+                if (slideActuelle >= totalSlides) slideActuelle = 0;
+                piste.style.transform = `translateX(-${slideActuelle * 100}%)`;
+                // Mettre à jour les dots
+                dots.forEach((d, i) => d.classList.toggle('active', i === slideActuelle));
+            }
+
+            function slideSuivante() {
+                allerALaSlide(slideActuelle + 1);
+            }
+
+            function slidePrecedente() {
+                allerALaSlide(slideActuelle - 1);
+            }
+
+            function demarrerAuto() {
+                arreterAuto();
+                intervalleAuto = setInterval(slideSuivante, 4000);
+            }
+
+            function arreterAuto() {
+                if (intervalleAuto) clearInterval(intervalleAuto);
+            }
+
+            btnNext.addEventListener('click', () => {
+                slideSuivante();
+                arreterAuto();
+                demarrerAuto();
+            });
+            btnPrev.addEventListener('click', () => {
+                slidePrecedente();
+                arreterAuto();
+                demarrerAuto();
+            });
+
+            // Pause au survol
+            const carrouselConteneur = document.querySelector('.carrousel-conteneur');
+            carrouselConteneur.addEventListener('mouseenter', arreterAuto);
+            carrouselConteneur.addEventListener('mouseleave', demarrerAuto);
+
+            // Support tactile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            carrouselConteneur.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                arreterAuto();
+            }, { passive: true });
+            carrouselConteneur.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchEndX < touchStartX - 50) slideSuivante();
+                if (touchEndX > touchStartX + 50) slidePrecedente();
+                demarrerAuto();
+            });
+
+            demarrerAuto();
+
+            // =============================================
+            // 4. LETTRE - EFFET MACHINE À ÉCRIRE
+            // =============================================
+            const lettreTexte = document.getElementById('lettre-texte');
+            const lettreSignature = document.getElementById('lettre-signature');
+            const lettreConteneur = document.getElementById('lettre-conteneur');
+            let machineEcritureDeclenchee = false;
+
+            function declencherMachineEcrire() {
+                if (machineEcritureDeclenchee) return;
+                machineEcritureDeclenchee = true;
+
+                let index = 0;
+                lettreTexte.textContent = '';
+                lettreTexte.classList.remove('termine');
+                lettreSignature.classList.remove('visible');
+
+                function ecrireCaractere() {
+                    if (index < TEXTE_LETTRE.length) {
+                        lettreTexte.textContent += TEXTE_LETTRE.charAt(index);
+                        index++;
+                        // Vitesse variable : plus rapide pour les espaces, plus lente pour la ponctuation
+                        const charActuel = TEXTE_LETTRE.charAt(index - 1);
+                        let delai = 35 + Math.random() * 25;
+                        if (charActuel === ' ') delai = 20;
+                        if (charActuel === '.' || charActuel === '!' || charActuel === '?') delai = 200;
+                        if (charActuel === ',') delai = 120;
+                        if (charActuel === '\n') delai = 180;
+                        // Faire défiler vers le bas si nécessaire
+                        lettreConteneur.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        setTimeout(ecrireCaractere, delai);
+                    } else {
+                        // Terminé
+                        lettreTexte.classList.add('termine');
+                        setTimeout(() => {
+                            lettreSignature.classList.add('visible');
+                        }, 400);
+                    }
+                }
+                ecrireCaractere();
+            }
+
+            // Observer pour déclencher la machine à écrire quand la section lettre est visible
+            const observerLettre = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !machineEcritureDeclenchee) {
+                        setTimeout(declencherMachineEcrire, 300);
+                        observerLettre.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observerLettre.observe(lettreConteneur);
+
+            // =============================================
+            // 5. MESSAGES SURPRISE - CLIC POUR RÉVÉLER
+            // =============================================
+            const cartesMessages = document.querySelectorAll('.message-carte');
+            cartesMessages.forEach(carte => {
+                carte.addEventListener('click', function() {
+                    if (this.classList.contains('revele')) {
+                        // Option : re-cliquer pour cacher
+                        this.classList.remove('revele');
+                        const face = this.querySelector('.message-face');
+                        face.innerHTML = `
+                                        <span class="message-emoji">💌</span>
+                                        <span class="message-indice">Clique-moi !</span>
+                                    `;
+                    } else {
+                        const message = this.dataset.message;
+                        this.classList.add('revele');
+                        const face = this.querySelector('.message-face');
+                        face.innerHTML = `
+                                        <span class="message-emoji">❤️</span>
+                                        <span class="message-texte-cache">${message}</span>
+                                    `;
+                        // Petite vibration élégante
+                        this.style.animation = 'none';
+                        this.offsetHeight; // reflow
+                        this.style.animation = 'fondu-echelle 0.5s ease';
+                    }
+                });
+            });
+
+            // =============================================
+            // 6. COMPTEUR DE JOURS
+            // =============================================
+            const compteurJours = document.getElementById('compteur-jours');
+            const compteurDate = document.getElementById('compteur-date');
+
+            // Afficher la date formatée
+            const jour = String(DATE_NAISSANCE.getDate()).padStart(2, '0');
+            const mois = String(DATE_NAISSANCE.getMonth() + 1).padStart(2, '0');
+            const annee = DATE_NAISSANCE.getFullYear();
+            const moisNoms = [
+                'janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+                'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'
+            ];
+            compteurDate.textContent = `${jour} ${moisNoms[DATE_NAISSANCE.getMonth()]} ${annee}`;
+
+            function calculerJours() {
+                const maintenant = new Date();
+                const diffMs = maintenant - DATE_NAISSANCE;
+                const diffJours = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                return Math.max(0, diffJours);
+            }
+
+            function animerCompteur() {
+                const cible = calculerJours();
+                const actuel = parseInt(compteurJours.textContent.replace(/\s/g, '')) || 0;
+                if (actuel < cible) {
+                    const increment = Math.max(1, Math.floor((cible - actuel) / 30));
+                    const nouveau = Math.min(actuel + increment, cible);
+                    compteurJours.textContent = nouveau.toLocaleString('fr-FR');
+                    if (nouveau < cible) {
+                        requestAnimationFrame(() => setTimeout(animerCompteur, 40));
+                    } else {
+                        compteurJours.textContent = cible.toLocaleString('fr-FR');
+                    }
                 } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
+                    compteurJours.textContent = cible.toLocaleString('fr-FR');
                 }
-            });
-        }
+            }
 
-        // Fermer le menu si on clique sur un lien
-        const allLinks = document.querySelectorAll('.nav-links li a');
-        allLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    const icon = menuToggle.querySelector('i');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
+            // Observer pour déclencher l'animation du compteur
+            const compteurConteneur = document.querySelector('.compteur-conteneur');
+            const observerCompteur = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animerCompteur();
+                        observerCompteur.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+            observerCompteur.observe(compteurConteneur);
+
+            // Initialiser avec 0
+            compteurJours.textContent = '0';
+
+            // =============================================
+            // 7. EFFET PARALLAXE LÉGER AU SCROLL
+            // =============================================
+            const heroPhoto = document.querySelector('.hero-photo');
+            const heroDeco1 = document.querySelector('.hero-deco-1');
+            const heroDeco2 = document.querySelector('.hero-deco-2');
+            const heroDeco3 = document.querySelector('.hero-deco-3');
+
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                // Parallaxe sur la photo du hero
+                if (heroPhoto && scrollY < window.innerHeight) {
+                    heroPhoto.style.transform = `translateY(${scrollY * 0.15}px)`;
                 }
-            });
-        });
+                // Décorations
+                if (heroDeco1) heroDeco1.style.transform = `translateY(${scrollY * 0.08}px)`;
+                if (heroDeco2) heroDeco2.style.transform = `translateY(${-scrollY * 0.06}px)`;
+                if (heroDeco3) heroDeco3.style.transform = `translateY(${scrollY * 0.1}px) translateX(${-scrollY * 0.04}px)`;
+            }, { passive: true });
 
-        // Petite animation subtile pour le logo
-        const logo = document.querySelector('.logo');
-        if (logo) {
-            setInterval(() => {
-                logo.style.transform = 'scale(1.02)';
-                setTimeout(() => { logo.style.transform = 'scale(1)'; }, 200);
-            }, 3000);
-        }
+            // =============================================
+            // 8. INITIALISATION FINALE
+            // =============================================
+            console.log('🌸 Bonne Fête Maman ! Le site est prêt. 🌸');
+            console.log('💡 Pensez à remplacer les images dans le dossier images/');
+            console.log('📅 Date du compteur :', DATE_NAISSANCE.toLocaleDateString('fr-FR'));
+            console.log('📝 Configuration modifiable en haut du script JS.');
 
-        // Ajustement pour réinitialiser AOS après chargement des cartes dynamiques (mais AOS déjà initialisé, on rafraîchit)
-        setTimeout(() => {
-            AOS.refresh();
-        }, 300);
+        })();
     </script>
 </body>
 </html>
